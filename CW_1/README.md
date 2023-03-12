@@ -1,4 +1,6 @@
-Authors: Zijie Chen (zijie-chen.20@ucl.ac.uk), Xuantong Lu (xuantong.lu.18@ucl.ac.uk), Wan Cai (wan.cai.17@ucl.ac.uk)
+Authors: Zijie Chen (zijie-chen.20@ucl.ac.uk), Xuantong Lu (xuantong.lu.18@ucl.ac.uk), Wan Cai (wan.cai.17@ucl.ac.uk).
+
+Video link: https://www.youtube.com/watch?v=6YOBiV6amBA&t=29s
 
 Description: This package forms the base ROS workspace for the coursework of module COMP0129 (https://github.com/COMP0129-UCL/comp0129_s23_robot.git): Robotic Sensing, Manipulation and Interaction.
 
