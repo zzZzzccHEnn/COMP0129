@@ -27,73 +27,8 @@ Gazebo physics simluator is also needed (http://gazebosim.org/). This can be ins
 ## Run Panda robot Gazebo and rviz
 ```bash
 > source devel/setup.bash
-> roslaunch cw1_team_4 run_solution.launch
+> roslaunch cw3_team_4 run_solution.launch
 ```
-
-## Visualizing Task 1, 2 & 3
-* This cousework contains three tasks including grasping, color detection and a planning task contains these two. For visualizing each task, run following command after run the Panda robot Gazebo and rviz:
-
-```bash
-> rosservice call /task x
-```
-**x** is the index of task, which is **1, 2 or 3**. Replace **x** with your choice.
-
-* A Point Cloud viewer has been implemented and will pop up when do `rosservice call /task x`. It provide the robot's perspectives. If nothing can be seen from the window, try scroll using mouse.    
-
-## Algorithms description
-
-* Task 1: Pick and Place at given positions.
-
-  Step 1: add collision objects to the Moveit motion planning.  
-
-  Step 2: move to the approach pose just above the cube and open the gripper.
-
-  Step 3: move to the grasp pose which is the centroid of cubes (given).
-
-  Step 4: move to the release_pose which is at some distance above the basket (given).
-
-  Step 5: open the grippers and drop cube on the basket. 
-
-* Task 2: Basket Colour identification.
-
-  Step 1: move to the first given position (given)
-
-  Step 2: use the subscribed point cloud to classify the colour (Voxel Grid and Pass through filtered, plane segmented).
-
-  Step 3: repeat Step  2 until all given position has been checked.
-
-* Task 3: Planning and Execution. 
-
-  Step 1: move to a scan pose to get the overview of all objects on the working desk.
-
-  Step 2: using a Euclidean Cluster to find cubes and baskets. 
-
-  Step 3: based on point cloud of each sub-clusters, return colour, category (basket/cube) and position.
-
-  Step 4: move to one cube, similar as task 1 to place it on basket in corresponding colour.
-
-## Potential Error
-
-* This may pop up on command in some cases. To solve it, we have to re-`roslaunch` the project.
-
-```bash
-[cw1_solution_node-19] process has died [pid 90014, exit code -6, cmd /home/wancai/comp0129_s23_robot/devel/lib/cw1_team_4/cw1_solution_node __name:=cw1_solution_node __log:=/home/wancai/.ros/log/59bb9b7a-b913-11ed-963c-db5ae5b7568a/cw1_solution_node-19.log].
-log file: /home/wancai/.ros/log/59bb9b7a-b913-11ed-963c-db5ae5b7568a/cw1_solution_node-19*.log
-```
-
-* Also, task 3 has some situations where noise is regarded as cube. Those noise may present a position that robot can not reach and thus lead to the failure of motion planning. In this case, we can only re-`rosservice call /task 3` to start a new task. However, after optimising the hyperparameter of PCL segmentation algorithms, this problems has been less likely to happen (approximately 1 out of 20 tests). 
-
-  *<u>(Task 3 is challenging and we found that our method may be not robust enough to solve all situations. So please, test it serval times to see its general performance.)</u>*
-
-* Euclidean Clustering is not stable as the hyperparameters have not been turned/optimised using any optimisation algorithm. Consequently, in some cases, the returned centroid position of cube may have error, which lead to a unreliable motion planning and crash happened. 
-
-## Performance/Accuracy
-
-From our experiments which run three tasks repeatedly (20 times), the accuracy of each algorithms:
-
-* Task 1: 100%
-* Task 2: 95%
-* Task 3: 90%
 
 ## License
 
